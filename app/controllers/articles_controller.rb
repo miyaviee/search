@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
   def index
-    render json: { msg: 'Hello, World' }
+    render json: Article.search(params[:q]).records
   end
 end
