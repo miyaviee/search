@@ -5,6 +5,10 @@ class Article < ActiveRecord::Base
     mapping dynamic: false do
       indexes :title, analyzer: 'kuromoji'
       indexes :description, analyzer: 'kuromoji'
+      indexes :article_contents, type: 'nested' do
+        indexes :title, analyzer: 'kuromoji'
+        indexes :body, analyzer: 'kuromoji'
+      end
     end
   end
 
@@ -12,9 +16,20 @@ class Article < ActiveRecord::Base
     search_definition = Elasticsearch::DSL::Search.search {
       query {
         if keyword.present?
-          multi_match {
-            query keyword
-            fields %{title description}
+          bool {
+            should {
+                multi_match {
+                  query keyword
+                  fields %{title description}
+                }
+                nested {
+                  path article_contents
+                  query {
+                    multi_match keyword
+                    fields %{article_contents.title article_contents.body}
+                  }
+                }
+            }
           }
         else
           match_all
@@ -23,6 +38,21 @@ class Article < ActiveRecord::Base
     }
 
     __elasticsearch__.search search_definition
+  end
+
+  def as_indexed_json(option={})
+    article_attrs = {
+      title: self.title,
+      description: self.description,
+    }
+    article_attrs[:article_contents] = self.article_contents.map do |article_content|
+      {
+        title: article_content.title,
+        body: article_content.body,
+      }
+    end
+
+    article_attrs.as_json
   end
 
   after_commit on: [:create] do
