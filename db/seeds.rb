@@ -9,6 +9,6 @@
 (1..5).each do |n|
   Article.create(title: "テスト#{n}", description: "本文#{n}")
   (1..5).each do |i|
-    ArticleContent.create(article_id: n, title: "title#{n}#{i}", body: "body#{n}#{i}")
+    ArticleContent.create(article_id: n, title: "コンテンツ#{n}#{i}", body: "コンテンツ本文#{n}#{i}")
   end
 end
