@@ -1,6 +1,5 @@
 class Article < ActiveRecord::Base
   include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
 
   settings do
     mapping dynamic: false do
@@ -24,6 +23,18 @@ class Article < ActiveRecord::Base
     }
 
     __elasticsearch__.search search_definition
+  end
+
+  after_commit on: [:create] do
+    __elasticsearch__.index_document if self.id
+  end
+
+  after_commit on: [:update] do
+    __elasticsearch__.update_document if self.id
+  end
+
+  after_commit on: [:destroy] do
+    __elasticsearch__.delete_document if self.id
   end
 
   has_many :article_contents
