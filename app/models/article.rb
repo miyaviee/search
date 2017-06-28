@@ -16,20 +16,8 @@ class Article < ActiveRecord::Base
     search_definition = Elasticsearch::DSL::Search.search {
       query {
         if keyword.present?
-          bool {
-            should {
-                multi_match {
-                  query keyword
-                  fields %{title description}
-                }
-                nested {
-                  path article_contents
-                  query {
-                    multi_match keyword
-                    fields %{article_contents.title article_contents.body}
-                  }
-                }
-            }
+          query_string {
+            query keyword
           }
         else
           match_all
