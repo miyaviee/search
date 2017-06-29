@@ -49,3 +49,4 @@ end
 
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
+gem 'dotenv-rails'
