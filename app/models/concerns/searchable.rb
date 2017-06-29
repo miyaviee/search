@@ -5,6 +5,8 @@ module Searchable
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
 
+    Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['ELASTICSEARCH_HOST']
+
     mapping dynamic: false do
       indexes :title, analyzer: 'kuromoji'
       indexes :description, analyzer: 'kuromoji'
