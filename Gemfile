@@ -49,3 +49,4 @@ end
 
 gem 'elasticsearch-model'
 gem 'dotenv-rails'
+gem 'aws-sdk'
