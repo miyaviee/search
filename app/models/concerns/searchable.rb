@@ -16,7 +16,7 @@ module Searchable
       end
     end
 
-    def search keyword
+    def self.search keyword
       search_definition = Elasticsearch::DSL::Search.search {
         query {
           if keyword.present?

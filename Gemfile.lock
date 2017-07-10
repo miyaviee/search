@@ -68,6 +68,7 @@ GEM
       elasticsearch-transport (= 5.0.4)
     elasticsearch-api (5.0.4)
       multi_json
+    elasticsearch-dsl (0.1.5)
     elasticsearch-model (5.0.1)
       activesupport (> 3)
       elasticsearch (~> 5)
@@ -186,6 +187,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   dotenv-rails
+  elasticsearch-dsl
   elasticsearch-model
   jbuilder (~> 2.0)
   jquery-rails

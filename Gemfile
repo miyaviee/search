@@ -48,5 +48,6 @@ group :development do
 end
 
 gem 'elasticsearch-model'
+gem 'elasticsearch-dsl'
 gem 'dotenv-rails'
 gem 'aws-sdk-rails'
