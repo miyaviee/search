@@ -47,6 +47,7 @@ group :development do
   gem 'pry-rails'
 end
 
+gem 'kaminari'
 gem 'elasticsearch-model'
 gem 'elasticsearch-dsl'
 gem 'dotenv-rails'

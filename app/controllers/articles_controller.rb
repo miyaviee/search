@@ -6,6 +6,6 @@ class ArticlesController < ApplicationController
         bucket: 'test',
       })
     end
-    render json: Article.search(params[:q]).records
+    render json: Article.search(params[:q]).page(params[:page]).records
   end
 end
